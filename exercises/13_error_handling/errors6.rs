@@ -25,7 +25,9 @@ impl ParsePosNonzeroError {
     }
 
     // TODO: Add another error conversion function here.
-    // fn from_parse_int(???) -> Self { ??? }
+    fn from_parse_int(err: ParseIntError) -> Self { 
+        Self::ParseInt(err)
+    }
 }
 
 #[derive(PartialEq, Debug)]
@@ -43,8 +45,18 @@ impl PositiveNonzeroInteger {
     fn parse(s: &str) -> Result<Self, ParsePosNonzeroError> {
         // TODO: change this to return an appropriate error instead of panicking
         // when `parse()` returns an error.
-        let x: i64 = s.parse().unwrap();
-        Self::new(x).map_err(ParsePosNonzeroError::from_creation)
+        // let x: i64 = s.parse().unwrap();
+        // Self::new(x).map_err(ParsePosNonzeroError::from_creation)
+        
+        // Solution 1: https://users.rust-lang.org/t/lost-on-how-to-proceed-with-rustlings-exercise-on-errors/120703/6
+        // match s.parse() {
+        //     Ok(num) => Self::new(num).map_err(ParsePosNonzeroError::from_creation),
+        //     Err(err) => Err(ParsePosNonzeroError::ParseInt(err))
+        // }
+
+        // Solution 2: https://users.rust-lang.org/t/rustlings-errors6-rs-whats-the-more-idiomatic-way/108222
+        let x: i64 = s.parse().map_err(ParsePosNonzeroError::from_parse_int)?;
+        Self::new(x).map_err(ParsePosNonzeroError::from_creation)       
     }
 }
 
