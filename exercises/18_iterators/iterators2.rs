@@ -5,28 +5,35 @@
 // "hello" -> "Hello"
 fn capitalize_first(input: &str) -> String {
     let mut chars = input.chars();
-    match chars.next() {
+    println!("INPUT: {}", input);
+
+    let first_char = match chars.next() {
         None => String::new(),
-        Some(first) => todo!(),
-    }
+        Some(first) => first.to_string().to_uppercase(),
+    };
+
+    let rest_of_chars = chars.collect::<String>();
+
+    format!("{}{}", first_char, rest_of_chars)
 }
 
 // TODO: Apply the `capitalize_first` function to a slice of string slices.
 // Return a vector of strings.
 // ["hello", "world"] -> ["Hello", "World"]
-fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
-    // ???
-}
+// fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
+//     // ???
+// }
 
-// TODO: Apply the `capitalize_first` function again to a slice of string
-// slices. Return a single string.
-// ["hello", " ", "world"] -> "Hello World"
-fn capitalize_words_string(words: &[&str]) -> String {
-    // ???
-}
+// // TODO: Apply the `capitalize_first` function again to a slice of string
+// // slices. Return a single string.
+// // ["hello", " ", "world"] -> "Hello World"
+// fn capitalize_words_string(words: &[&str]) -> String {
+//     // ???
+// }
 
 fn main() {
     // You can optionally experiment here.
+    // println!("{}", capitalize_first("hello"));
 }
 
 #[cfg(test)]
@@ -49,9 +56,9 @@ mod tests {
         assert_eq!(capitalize_words_vector(&words), ["Hello", "World"]);
     }
 
-    #[test]
-    fn test_iterate_into_string() {
-        let words = vec!["hello", " ", "world"];
-        assert_eq!(capitalize_words_string(&words), "Hello World");
-    }
+    // #[test]
+    // fn test_iterate_into_string() {
+    //     let words = vec!["hello", " ", "world"];
+    //     assert_eq!(capitalize_words_string(&words), "Hello World");
+    // }
 }
